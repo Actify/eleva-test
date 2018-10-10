@@ -12,7 +12,7 @@
     }
 
     public function create($insert) {
-      if(isset($insert['name']) && isset($insert['lat']) && isset($insert['lng'])) {
+      if(isset($insert)) {
         $insert['active'] = 1;
         $insert['creation_date'] = sqlDate();
         $insert['update_date'] = sqlDate();
@@ -26,15 +26,17 @@
     }
 
     public function update($facility_id, $update) {
-      unset($update['id']);
-      unset($update['creation_date']);
+      if(isset($update) && $this->exist($facility_id)) {
+        unset($update['id']);
+        unset($update['creation_date']);
 
-      $update['id'] = $facility_id;
-      $update['update_date'] = sqlDate();
+        $update['id'] = $facility_id;
+        $update['update_date'] = sqlDate();
 
-      $result = $this->conn->update('facilities', $update, array('id'));
+        $result = $this->conn->update('facilities', $update, array('id'));
 
-      return $this->get($facility_id);
+        return $this->get($facility_id);
+      }      
     }
 
     public function get($facility_id) {
@@ -143,6 +145,17 @@
 
     public function generateGmapsLink($lat = 0, $lng = 0, $gmaps_id = '') {
       return 'https://www.google.com/maps/search/?api=1&query='.$lat.','.$lng.'&query_place_id='.$gmaps_id;
+    }
+
+    private function exist($facility_id) {
+      $sql = "SELECT f.id FROM facilities p WHERE f.id = $facility_id";
+      $result = $this->conn->query($sql);
+
+      if($row = $result->fetch_assoc()) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 ?>
