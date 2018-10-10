@@ -1,0 +1,89 @@
+<!--<div class="d-flex flex-column flex-md-row align-items-center bg-secondary facility-header">
+  <div class="m-3 flex-shrink-0 border border-light rounded-circle facility-header__photo"><img ng-src="{{ facility.gmaps_image_small }}"></div>
+  <div class="m-3 text-center text-md-left">
+    <div class="flex-grow-1 mb-3">
+      <h3 class="text-white m-0">{{ facility.name }}</h3>
+      <span class="text-white">{{ facility.address }}</span>
+    </div>
+    <div>
+      <a ng-href="{{'https://www.google.com/maps/search/?api=1&query='+facility.lat+','+facility.lng+'&query_place_id='+facility.gmaps_id}}" target="_blank" class="btn btn-dark">
+        <i class="material-icons">directions</i>
+        <span>Vedi sulla mappa</span>
+      </a>
+      <a ng-href="#!facility-edit/{{ facility.id}}" class="btn btn-dark">
+        <i class="material-icons">edit</i>
+      </a>
+    </div>
+  </div> 
+</div>-->
+<div class="position-relative p-3 d-flex flex-column flex-md-row align-items-center">
+  <div class="flex-shrink-0 p-3"><img class="rounded-circle d-block" ng-src="{{ facility.gmaps_image_small }}"></div>
+  <div class="flex-grow-1 text-center text-md-left">
+    <h3 class="m-0">{{ facility.name }}</h3>
+    <span >{{ facility.address }}</span>
+    <div class="mt-3">
+      <a ng-href="{{'https://www.google.com/maps/search/?api=1&query='+facility.lat+','+facility.lng+'&query_place_id='+facility.gmaps_id}}" target="_blank" class="btn btn-dark">
+        <i class="material-icons">directions</i>
+        <span>Vedi sulla mappa</span>
+      </a>
+      <a ng-href="#!facility-edit/{{ facility.id}}" class="btn btn-dark">
+        <i class="material-icons">edit</i>
+        <span>Modifica</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<section class="p-3">
+  <h5>Personale</h5>
+  <ul class="list-group my-3">
+    <li class="list-group-item" ng-repeat="(index, item) in facility.staff">
+      <div class="d-flex flex-row align-items-start">
+        <div class="circle-avatar rounded-circle p-2 mr-3"><i class="material-icons">person</i></div>
+        <div class="flex-grow-1">
+          <span class="font-weight-bold text-truncate">{{ item.name + ' ' + item.surname }}</span><br>
+          <small class="text-black-50">{{ item.email }}</small>
+        </div>
+        <div class="ml-3 badge badge-info" ng-style="{'background-color': item.role_color}">{{ item.role_label }}</div>
+      </div>
+    </li>
+  </ul>
+  <div class="alert alert-secondary" role="alert" ng-if="facility.staff.length == 0">
+    Nessuna persona inserita nel personale
+  </div>
+  <button type="button" class="btn btn-primary btn-block" ng-click="showStaffModal()">Aggiungi personale</button>
+</section>
+
+<div class="modal fade" id="staffInsertModal" tabindex="-1" role="dialog" aria-labelledby="staffInsertModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staffInsertModalLabel">Seleziona</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" ng-repeat="(index, item) in unlistedPeople">
+            <div class="d-flex flex-row align-items-center">
+              <div class="form-check flex-grow-1">
+                <input class="form-check-input" type="checkbox" value="1" ng-model="item.selected" id="{{ 'checkboxItem' + index }}">
+                <label class="form-check-label" for="{{ 'checkboxItem' + index }}">{{ item.name + ' ' + item.surname }}</label>
+              </div>
+              <div class="ml-3">
+                <select class="form-control" ng-model="item.role" ng-options="item.id as item.description for item in facility.roles">
+                  <option value="">-- Ruolo --</option>
+                </select>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+        <button type="button" class="btn btn-primary" ng-click="addSelectedPeople()">Inserisci</button>
+      </div>
+    </div>
+  </div>
+</div>

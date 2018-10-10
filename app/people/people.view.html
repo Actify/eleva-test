@@ -1,0 +1,24 @@
+<div class="p-3">
+  <ul class="list-group mb-3">
+    <li ng-repeat="item in peopleList" class="list-group-item">
+      <div class="d-flex flex-row align-items-start">
+        <div class="flex-grow-1">
+          <span class="font-weight-bold">{{ item.name + ' ' + item.surname }}</span>
+          <br>
+          <span class="text-info">{{ item.email }}</span>
+          <br>
+          <small class="text-black-50">Assegnato a {{ item.facilities.length }} impianti</small>
+        </div>
+        <div class="dropdown">
+          <a class="btn btn-light" ng-href="#!person-edit/{{ item.id }}">
+            <i class="material-icons">edit</i>
+          </a>
+        </div>
+      </div>      
+    </li>
+  </ul>
+  <div class="alert alert-secondary mb-3" role="alert" ng-if="peopleList.length == 0">
+    Nessuna persona inserita nella lista.
+  </div>
+  <a class="btn btn-primary btn-block" href="#!person-edit">Aggiungi</span></a>
+</div>

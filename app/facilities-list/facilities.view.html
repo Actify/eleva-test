@@ -1,0 +1,41 @@
+<div class="p-3">
+  <div class="list-group">
+    <a ng-repeat="(index, item) in facilitiesList" ng-href="{{ '#!facility/' + item.id }}" class="list-group-item list-group-item-action facilities-list-item">
+      <div class="d-flex flex-row align-items-start">
+        <!--<img class="flex-shrink-0 mr-3" style="display: block; height: 80px;" src="https://maps.googleapis.com/maps/api/staticmap?center={{item.lat + ',' + item.lng}}&zoom=15&size=150x150&maptype=roadmap&key=AIzaSyCCtVf_IsLSSp_u_eOfBakK2cGsHxC3PRA">-->
+        <div class="flex-shrink-0 mr-3 facilities-list-item__photo"><img ng-src="{{item.gmaps_image}}"></div>
+        <div class="flex-grow-1">
+          <span class="font-weight-bold flex-grow-1 facilities-list-item__name">{{ item.name }}</span>
+          <div class="text-black-50 facilities-list-item__address">{{ item.address }}</div>
+        </div>        
+      </div>
+    </a>
+  </div>
+  <div class="alert alert-secondary" role="alert" ng-if="facilitiesList.length == 0">
+    Nessun impianto inserito
+  </div>
+</div>
+<div class="p-3" ng-controller="editFacilityController">
+  <div class="form-group">
+    <input class="form-control" ng-model="chosenPlace" place-detail="placeDetail" place-autocomplete/>
+  </div>
+  <form name="editFacilityForm">
+    <div class="form-group">
+      <label for="nameInput">Nome</label>
+      <input type="text" name="name" id="nameInput" class="form-control" ng-model="facility.name" required>
+    </div>
+    <div class="form-group">
+      <label for="addressInput">Indirizzo</label>
+      <input type="text" name="address" id="addressInput" class="form-control" ng-model="facility.address" required>
+    </div>
+    <div class="form-group">
+      <label id="latInput">Latitudine</label>
+      <input type="text" name="lat" id="latInput" class="form-control" ng-model="facility.lat" readonly="readonly" required>
+    </div>
+    <div class="form-group">
+      <label id="lngInput">Latitudine</label>
+      <input type="text" name="lng" id="lngInput" class="form-control" ng-model="facility.lng" readonly="readonly" required>
+    </div>
+    <button ng-click="saveFacility()" ng-disabled="editFacilityForm.$invalid" class="btn btn-primary btn-lg btn-block">Salva</button>
+  </form>
+</div>

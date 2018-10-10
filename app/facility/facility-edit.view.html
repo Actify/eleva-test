@@ -1,0 +1,30 @@
+<div class="p-3">
+  <div class="form-group">
+    <input class="form-control" ng-model="chosenPlace" placeholder="Ricerca luogo" place-detail="placeDetail" place-autocomplete/>
+  </div>
+  <gmap-pick style="display: block;height: 300px;" place-detail="placeDetail"></gmap-pick>
+  <form name="editFacilityForm">
+    <div class="form-group">
+      <label for="nameInput">Nome</label>
+      <input type="text" name="name" id="nameInput" class="form-control form-control-lg" ng-model="facility.name" placeholder="Nome impianto" required>
+    </div>
+    <div class="form-group">
+      <label for="addressInput">Indirizzo</label>
+      <input type="text" name="address" id="addressInput" class="form-control" ng-model="facility.address" placeholder="Indirizzo" required>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-6">
+        <label id="latInput">Latitudine</label>
+        <input type="text" name="lat" id="latInput" class="form-control" ng-model="facility.lat" readonly="readonly" required>
+      </div>
+      <div class="form-group col-6">
+        <label id="lngInput">Longitudine</label>
+        <input type="text" name="lng" id="lngInput" class="form-control" ng-model="facility.lng" readonly="readonly" required>
+      </div>
+    </div>
+    <div class="my-3 text-right">
+      <button ng-click="saveFacility()" ng-if="updateMode" class="btn btn-secondary">Elimina</button>
+      <button ng-click="saveFacility()" ng-disabled="editFacilityForm.$invalid" class="btn btn-primary">Salva</button>      
+    </div>
+  </form>
+</div>

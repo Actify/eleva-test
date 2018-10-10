@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#343a40">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Gestionale Impianti</title>  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style/custom.css">
+</head>
+<body ng-app="myApp">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" ng-controller="navigationController">
+    <a class="navbar-brand" href="#">Gestionale</a>
+    <span style="flex-grow: 1"></span>
+    <div class="nav nav-pills">
+      <a ng-repeat="(index, item) in navItems" class="nav-item nav-link" ng-class="item.selected ? 'active' : 'text-light'" href="#" ng-click="navTo($event, item.path)">{{ item.label }}</a>
+    </div>
+  </nav>
+  <div ng-view class="container"></div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="  anonymous"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCtVf_IsLSSp_u_eOfBakK2cGsHxC3PRA&libraries=places"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+  <!--app-->
+  <script src="app/app.js" type="text/javascript"></script>
+  <script src="app/app.route.js" type="text/javascript"></script>
+  <!--common-->
+  <script src="app/common/places.directive.js" type="text/javascript"></script>
+  <script src="app/common/navigation.service.js" type="text/javascript"></script>
+  <script src="app/common/navigation.controller.js" type="text/javascript"></script>
+  <!--overview-->
+  <script src="app/overview/overview.controller.js" type="text/javascript"></script>
+  <!--person-->
+  <script src="app/person/person.service.js" type="text/javascript"></script>
+  <script src="app/person/person-edit.controller.js" type="text/javascript"></script>
+  <!--people-->
+  <script src="app/people/people.service.js" type="text/javascript"></script>
+  <script src="app/people/people.controller.js" type="text/javascript"></script>
+  <!--facilities-->
+  <script src="app/facilities-list/facilities-list.service.js" type="text/javascript"></script>
+  <script src="app/facilities-list/facilities-list.controller.js" type="text/javascript"></script>
+  <!--facility-->
+  <script src="app/facility/facility.service.js" type="text/javascript"></script>
+  <script src="app/facility/facility.controller.js" type="text/javascript"></script>
+  <script src="app/facility/facility-edit.controller.js" type="text/javascript"></script>
+</body>
+</html>

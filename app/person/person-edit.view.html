@@ -1,0 +1,35 @@
+<div class="p-3">
+  <h5 class="mb-3">Dati anagrafici</h5>
+  <form name="editStaffForm">
+    <div class="form-row">
+      <div class="form-group col-6">
+        <label for="nameInput">Nome</label>
+        <input type="text" name="name" id="nameInput" class="form-control form-control-lg" ng-model="person.name" placeholder="Nome" required>
+      </div>
+      <div class="form-group col-6">
+        <label for="surnnameInput">Cognome</label>
+        <input type="text" name="surname" id="surnnameInput" class="form-control form-control-lg" ng-model="person.surname" placeholder="Cognome" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label id="emailInput">Email</label>
+      <input type="email" name="email" id="emailInput" class="form-control" ng-model="person.email" placeholder="Email" required>
+    </div>
+    <div class="py-3 text-right">
+      <button type="button" class="btn btn-secondary" ng-click="delete()" ng-if="updateMode">Elimina</button>
+      <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="editStaffForm.$invalid">Salva</button>
+    </div>    
+  </form>
+</div>
+<div class="p-3 border-top" ng-if="updateMode && person.facilities">
+  <h5 class="mb-3">Impianti associati</h5>
+  <ul class="list-group">
+    <li ng-repeat="facility in person.facilities" class="list-group-item d-flex flex-row align-items-center">
+      <span class="flex-grow-1">{{ facility.name }}</span>
+      <button type="button" class="btn btn-secondary btn-sm" ng-click="removeAssociation(facility.id)">Rimuovi</button>
+    </li>
+  </ul>
+  <div class="alert alert-secondary" role="alert" ng-if="person.facilities.length == 0">
+    Nessuna impianto associato
+  </div>
+</div>
