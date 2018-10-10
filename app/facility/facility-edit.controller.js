@@ -59,7 +59,7 @@
           if(typeof enterObj === 'object' && enterObj.hasOwnProperty(property)) {
             $scope.facility[property] = enterObj[property];
           } else if(!$scope.facility.hasOwnProperty(property)) {
-            scope.facility[property] = '';
+            $scope.facility[property] = '';
           }
         });
       }
