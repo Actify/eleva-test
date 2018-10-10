@@ -25,7 +25,11 @@
   <h5 class="mb-3">Impianti associati</h5>
   <ul class="list-group">
     <li ng-repeat="facility in person.facilities" class="list-group-item d-flex flex-row align-items-center">
-      <span class="flex-grow-1">{{ facility.name }}</span>
+      <div class="flex-grow-1 mr-3">
+        <strong>{{ facility.name }}</strong>
+        <br>
+        <small>{{ facility.staff_role }}</small>
+      </div>
       <button type="button" class="btn btn-secondary btn-sm" ng-click="removeAssociation(facility.id)">Rimuovi</button>
     </li>
   </ul>

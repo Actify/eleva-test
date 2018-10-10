@@ -1,8 +1,10 @@
 <div class="p-3">
-  <div class="form-group">
-    <input class="form-control" ng-model="chosenPlace" placeholder="Ricerca luogo" place-detail="placeDetail" place-autocomplete/>
+  <div class="mb-3">
+    <div class="form-group">
+      <input class="form-control" ng-model="chosenPlace" placeholder="Ricerca luogo" place-detail="placeDetail" place-autocomplete/>
+    </div>
+    <gmap-pick style="display: block;height: 200px;" place-detail="placeDetail"></gmap-pick>
   </div>
-  <gmap-pick style="display: block;height: 300px;" place-detail="placeDetail"></gmap-pick>
   <form name="editFacilityForm">
     <div class="form-group">
       <label for="nameInput">Nome</label>
@@ -27,4 +29,18 @@
       <button ng-click="saveFacility()" ng-disabled="editFacilityForm.$invalid" class="btn btn-primary">Salva</button>      
     </div>
   </form>
+</div>
+<div class="p-3 border-top">
+  <h5 class="mb-3">Ruoli</h5>
+  <div ng-repeat="(index, role) in facility.roles" class="form-row">
+    <div class="form-group col-8">
+      <input type="text" name="role" id="roleInput{{ index }}" class="form-control" ng-model="role.description" placeholder="Nome ruolo">
+    </div>
+    <div class="form-group col-4">
+      <select class="form-control" ng-model="role.color" ng-options="item.hex as item.label for item in ::colors">
+        <option value="">-- Colore --</option>
+      </select>
+    </div>
+  </div>
+  <button type="button" class="btn btn-outline-primary" ng-click="addRole()">Aggiungi ruolo</button>
 </div>

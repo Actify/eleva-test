@@ -17,9 +17,20 @@
         $insert['creation_date'] = sqlDate();
         $insert['update_date'] = sqlDate();
 
+        if(isset($insert['roles'])) {
+          $roles = $insert['roles'];
+          unset($insert['roles']);
+        }
+
         $this->conn->insert('facilities', $insert);
 
         $id = $this->conn->getLastInsertId();
+
+        if(isset($roles)) {
+          foreach ($roles as $key => $value) {
+            $this->addRole($id, $value);
+          }
+        }
 
         return $this->get($id);
       }      
@@ -33,7 +44,22 @@
         $update['id'] = $facility_id;
         $update['update_date'] = sqlDate();
 
+        if(isset($update['roles'])) {
+          $roles = $update['roles'];
+          unset($update['roles']);
+        }
+
         $result = $this->conn->update('facilities', $update, array('id'));
+
+        if(isset($roles)) {
+          foreach ($roles as $key => $value) {
+            if(isset($value['id'])) {
+              $this->updateRole($facility_id, $value['id'], $value);
+            } else {
+              $this->addRole($facility_id, $value);
+            }            
+          }
+        }
 
         return $this->get($facility_id);
       }      
@@ -59,7 +85,7 @@
     public function getRoles($facility_id) {
       $sql = "SELECT * ";
       $sql .= "FROM facility_roles fr ";
-      $sql .= "WHERE fr.facility_id = $facility_id OR ISNULL(fr.facility_id) ";
+      $sql .= "WHERE fr.facility_id = $facility_id ";// OR ISNULL(fr.facility_id) ";
       $sql .= "ORDER BY fr.description DESC";
 
       $result = $this->conn->query($sql);
@@ -76,7 +102,19 @@
     }
 
     public function addRole($facility_id, $role) {
-      
+      if(isset($role) && isset($role['description']) && $role['description'] != '') {
+        $role['facility_id'] = $facility_id;
+        $this->conn->insert('facility_roles', $role);
+      }
+    }
+
+    public function updateRole($facility_id, $role_id, $role) {
+      if(isset($role) && isset($role['description']) && $role['description'] != '') {
+        $role['id'] = $role_id;
+        $role['facility_id'] = $facility_id;
+
+        $result = $this->conn->update('facility_roles', $role, array('id'));
+      }
     }
 
     public function getStaff($facility_id) {
@@ -148,7 +186,7 @@
     }
 
     private function exist($facility_id) {
-      $sql = "SELECT f.id FROM facilities p WHERE f.id = $facility_id";
+      $sql = "SELECT f.id FROM facilities f WHERE f.id = $facility_id";
       $result = $this->conn->query($sql);
 
       if($row = $result->fetch_assoc()) {

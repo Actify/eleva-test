@@ -64,7 +64,8 @@
     }
 
     public function getAssociatedFacilities($person_id) {
-      $sql = "SELECT f.id, f.name, f.photo_url ";
+      $sql = "SELECT f.id, f.name, f.photo_url, ";
+      $sql .= "(SELECT fr.description FROM facility_staff fs INNER JOIN facility_roles fr ON fr.id = fs.role_id WHERE fs.facility_id = f.id AND fs.person_id = $person_id) AS staff_role ";
       $sql .= "FROM facilities f ";
       $sql .= "WHERE f.id IN(SELECT fs.facility_id FROM facility_staff fs WHERE fs.person_id = $person_id) AND f.active = 1 ";
       $sql .= "ORDER BY f.name DESC";
