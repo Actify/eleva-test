@@ -59,6 +59,11 @@
             map.setZoom(5);
           }
 
+          var moveToMarker = function(id, pos) {
+            map.setCenter(pos);
+            map.setZoom(12);
+          }
+
           //set center position from geolocation;
           //if it isn't available, center the map from first marker position
           if (navigator.geolocation) {
@@ -89,14 +94,13 @@
 
                 (function(id, pos) {
                   marker.addListener('click', function() {
+                    moveToMarker(id, pos);
                     scope.openMarker({id:id});
-                    map.setCenter(pos);
-                    map.setZoom(12);
                   });
                 })(item.id, position);
 
                 if(index == 0) {
-                  map.setCenter(position);
+                  moveToMarker(item.id, position);
                 }              
               });            
             }
