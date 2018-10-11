@@ -178,7 +178,9 @@
     }
 
     public function generateStaticMapLink($lat = 0, $lng = 0, $width = 200, $height = 200) {
-      return 'https://maps.googleapis.com/maps/api/staticmap?center='.$lat.','.$lng.'&zoom=15&size='.$width.'x'.$height.'&maptype=roadmap&markers=&markers=color:blue%7C'.$lat.','.$lng.'&key=AIzaSyCCtVf_IsLSSp_u_eOfBakK2cGsHxC3PRA';
+      global $configuration;
+
+      return 'https://maps.googleapis.com/maps/api/staticmap?center='.$lat.','.$lng.'&zoom=15&size='.$width.'x'.$height.'&maptype=roadmap&markers=&markers=color:blue%7C'.$lat.','.$lng.'&key='.$configuration->gMapsKey;
     }
 
     public function generateGmapsLink($lat = 0, $lng = 0, $gmaps_id = '') {

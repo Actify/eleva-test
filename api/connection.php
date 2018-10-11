@@ -6,14 +6,12 @@
   class Database
   {
 
-    private $host = "localhost";
-    private $db_name = "eleva-management";
-    private $username = "test";
-    private $password = "test123!";
     public $conn;
     
     public function __construct() {
-      $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
+      global $configuration;
+
+      $this->conn = new mysqli($configuration->dbHost, $configuration->dbUser, $configuration->dbPassword, $configuration->dbName);
 
       // Check connection
       if ($this->conn->connect_error) {

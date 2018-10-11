@@ -4,6 +4,7 @@
   header("Content-Type: application/json; charset=UTF-8");
 
   include('utils.php');
+  include('configuration.php');
   include('connection.php');
   include('bo/facility.bo.php');
   include('bo/facilities-list.bo.php');
