@@ -54,6 +54,11 @@
             disableDefaultUI: true
           });
 
+          var setDefaultCenter = function() {
+            map.setCenter({lat:41.2036302, lng:8.2242391});
+            map.setZoom(5);
+          }
+
           //set center position from geolocation;
           //if it isn't available, center the map from first marker position
           if (navigator.geolocation) {
@@ -64,10 +69,10 @@
               };
               map.setCenter(pos);
             }, function() {
-              //not allowed
+              setDefaultCenter();
             });
           } else {
-            //not supported
+            setDefaultCenter();
           }
 
           //watch markers array: when update, add new marker
@@ -113,6 +118,11 @@
             disableDefaultUI: true
           });
 
+          var setDefaultCenter = function() {
+            map.setCenter({lat:41.2036302, lng:8.2242391});
+            map.setZoom(5);
+          }
+
           var geocoder = new google.maps.Geocoder;
           var service = new google.maps.places.PlacesService(map);
 
@@ -157,10 +167,10 @@
               };
               map.setCenter(pos);
             }, function() {
-              //not allowed
+              setDefaultCenter();
             });
           } else {
-            //not supported
+            setDefaultCenter();
           }
         }
       };

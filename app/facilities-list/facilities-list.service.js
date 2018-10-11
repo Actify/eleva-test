@@ -3,26 +3,17 @@
 
   angular
     .module('myApp')
-    .service('facilitiesListService', ['$http', function($http) {
-
-      this.list = [
-        {
-          name: 'Palazzina',
-          address: 'Via qualcosa, n3, Milano',
-          lat: 0,
-          lng: 0,
-        }
-      ];
+    .service('facilitiesListService', ['$http', 'apiService', function($http, apiService) {
 
       this.getAll = function() {
-        return $http.get("http://192.168.32.124/rd/eleva/api/index.php?api=facilitiesList&method=getAll")
+        return $http.get(apiService.getUrl('facilitiesList', 'getAll'))
           .then(function(response) {
             return response.data;
           });
       }
 
       this.create = function(facility) {
-        return $http.post("http://192.168.32.124/rd/eleva/api/index.php?api=facility&method=create", facility)
+        return $http.post(apiService.getUrl('facilitiesList', 'create'), facility)
           .then(function(response) {
             return response.data;
           });
@@ -35,7 +26,7 @@
       }
 
       this.addStaffMembers = function(id, list) {
-        return $http.post("http://192.168.32.124/rd/eleva/api/index.php?api=facility&method=addStaffMembers&id=" + id, list)
+        return $http.post(apiService.getUrl('facilitiesList', 'addStaffMembers',{id: id}), list)
           .then(function(response) {
             return response.data;
           });

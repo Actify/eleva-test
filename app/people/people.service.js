@@ -3,21 +3,13 @@
 
   angular
     .module('myApp')
-    .service('peopleService', ['$http', function($http) {
-
-      var apiUrl = "http://192.168.32.124/rd/eleva/api/index.php?api=peopleList&method=";
-
+    .service('peopleService', ['$http', 'apiService', function($http, apiService) {
+      
       this.getList = function() {
-        return $http.post(apiUrl + "getAll")
+        return $http.post(apiService.getUrl('peopleList', 'getAll'))
           .then(function(response) {
             return response.data;
           });
-      }
-
-      this.add = function(member) {
-        if(typeof member === 'object') {
-          this.list.push(member);
-        }
       }
     }]);
 })();

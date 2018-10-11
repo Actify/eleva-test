@@ -3,40 +3,38 @@
 
   angular
     .module('myApp')
-    .service('personService', ['$http', function($http) {
-
-      var apiUrl = "http://192.168.32.124/rd/eleva/api/index.php?api=person&method=";
+    .service('personService', ['$http', 'apiService', function($http, apiService) {
 
       this.create = function(person) {
-        return $http.post(apiUrl + "create", person)
+        return $http.post(apiService.getUrl('person', 'create'), person)
           .then(function(response) {
             return response.data;
           });
       }
 
       this.get = function(id) {
-        return $http.get(apiUrl + "get&id=" + id)
+        return $http.get(apiService.getUrl('person', 'get', {id: id}))
           .then(function(response) {
             return response.data;
           });
       }
 
       this.update = function(id, person) {
-        return $http.post(apiUrl + "update&id=" + id, person)
+        return $http.post(apiService.getUrl('person', 'update', {id: id}), person)
           .then(function(response) {
             return response.data;
           });
       }
 
       this.delete = function(id) {
-        return $http.get(apiUrl + "delete&id=" + id)
+        return $http.get(apiService.getUrl('person', 'delete', {id: id}))
           .then(function(response) {
             return response.data;
           });
       }
 
       this.removeAssociatedFacility = function(id, facility_id) {
-        return $http.get(apiUrl + "removeAssociatedFacility&id=" + id + "&facility=" + facility_id)
+        return $http.get(apiService.getUrl('person', 'removeAssociatedFacility', {id: id, facility: facility_id}))
           .then(function(response) {
             return response.data;
           });
