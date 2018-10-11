@@ -17,16 +17,16 @@
   </div> 
 </div>-->
 <div class="position-relative p-3 d-flex flex-column flex-md-row align-items-center">
-  <div class="flex-shrink-0 p-3"><img class="rounded-circle d-block" ng-src="{{ facility.gmaps_image_small }}"></div>
+  <div class="flex-shrink-0 p-3"><img class="rounded-circle shadow-sm d-block" ng-src="{{ facility.gmaps_image_small }}"></div>
   <div class="flex-grow-1 text-center text-md-left">
     <h3 class="m-0">{{ facility.name }}</h3>
     <span >{{ facility.address }}</span>
     <div class="mt-3">
-      <a ng-href="{{'https://www.google.com/maps/search/?api=1&query='+facility.lat+','+facility.lng+'&query_place_id='+facility.gmaps_id}}" target="_blank" class="btn btn-dark">
+      <a ng-href="{{'https://www.google.com/maps/search/?api=1&query='+facility.lat+','+facility.lng+'&query_place_id='+facility.gmaps_id}}" target="_blank" class="btn btn-outline-primary">
         <i class="material-icons">directions</i>
         <span>Vedi sulla mappa</span>
       </a>
-      <a ng-href="#!facility-edit/{{ facility.id}}" class="btn btn-dark">
+      <a ng-href="#!facility-edit/{{ facility.id}}" class="btn btn-outline-primary">
         <i class="material-icons">edit</i>
         <span>Modifica</span>
       </a>
