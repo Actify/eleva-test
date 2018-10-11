@@ -5,7 +5,7 @@
     .module('myApp')
     .service('apiService', [function() {
       
-      var baseUrl = "http://192.168.32.124/rd/eleva/api/index.php";
+      var baseUrl = window.location.origin + '/' + window.location.pathname + '/api/index.php';
 
       this.getUrl = function(apiName, apiMethod, params) {
         var url = baseUrl + '?api=' + apiName + '&method=' + apiMethod;
