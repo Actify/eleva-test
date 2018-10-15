@@ -3,9 +3,11 @@
 
   angular
     .module('myApp')
-    .service('apiService', [function() {
-      
-      var baseUrl = window.location.origin + '/' + window.location.pathname + '/api/index.php';
+    .service('apiService', ['API_URL', function(API_URL) {
+
+      var baseUrl = API_URL !== false 
+        ? API_URL 
+        : window.location.origin + '/' + window.location.pathname + '/api/index.php';
 
       this.getUrl = function(apiName, apiMethod, params) {
         var url = baseUrl + '?api=' + apiName + '&method=' + apiMethod;

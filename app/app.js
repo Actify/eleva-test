@@ -2,5 +2,6 @@
   'use strict';
 
   angular
-    .module('myApp', ['ngRoute']);
+    .module('myApp', ['ngRoute'])
+    .constant('API_URL', false);
 })();
