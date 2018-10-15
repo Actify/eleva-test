@@ -35,9 +35,16 @@
 </div>
 
 <section class="p-3">
-  <h5>Personale</h5>
+  <div class="d-flex flex-row align-items-center mb-3">
+    <h5 class="flex-grow-1 m-0">Personale</h5>
+    <!--<div class="ml-3">
+      <select class="form-control" ng-model="roleFilter" ng-options="item.id as item.description for item in facility.roles">
+        <option value="">Tutti i ruoli</option>
+      </select>
+    </div>-->
+  </div>
   <ul class="list-group my-3">
-    <li class="list-group-item" ng-repeat="(index, item) in facility.staff">
+    <li class="list-group-item" ng-repeat="(index, item) in facility.staff | filter: {role_id : roleFilter}">
       <div class="d-flex flex-row align-items-start">
         <div class="circle-avatar rounded-circle p-2 mr-3"><i class="material-icons">person</i></div>
         <div class="flex-grow-1">
@@ -72,7 +79,7 @@
                 <label class="form-check-label" for="{{ 'checkboxItem' + index }}">{{ item.name + ' ' + item.surname }}</label>
               </div>
               <div class="ml-3">
-                <select class="form-control" ng-model="item.role" ng-options="item.id as item.description for item in facility.roles">
+                <select class="form-control" ng-model="item.role" ng-options="role.id as role.description for role in facility.roles">
                   <option value="">-- Ruolo --</option>
                 </select>
               </div>

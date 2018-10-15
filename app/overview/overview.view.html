@@ -2,6 +2,12 @@
   <div class="col-12 col-md-6 p-0"><gmap-view class="gmap-view mt-md-3" markers="facilities" open-marker="selectFacility(id)"></gmap-view></div>
   <div class="col-12 col-md-6 p-3">
     <div class="list-group">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id="facilitySearchInput" ng-model="facilitiesSearch" ng-keyup="searchFacilities()" placeholder="Cerca...">
+        <div class="input-group-append" ng-click="resetSearch()">
+          <span class="input-group-text" id="basic-addon2">Annulla</span>
+        </div>
+      </div>
       <a ng-repeat="(index, item) in facilities" ng-href="{{ '#!facility/' + item.id }}" class="list-group-item list-group-item-action facilities-list-item" ng-class="{'active' : item.active === true}">
         <div class="d-flex flex-row align-items-start">
           <div class="flex-shrink-0 mr-3 facilities-list-item__photo"><img ng-src="{{item.gmaps_image}}"></div>

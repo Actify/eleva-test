@@ -12,21 +12,8 @@
           });
       }
 
-      this.create = function(facility) {
-        return $http.post(apiService.getUrl('facilitiesList', 'create'), facility)
-          .then(function(response) {
-            return response.data;
-          });
-      }
-
-      this.add = function(structure) {
-        if(typeof structure === 'object') {
-          this.list.push(structure);
-        }
-      }
-
-      this.addStaffMembers = function(id, list) {
-        return $http.post(apiService.getUrl('facilitiesList', 'addStaffMembers',{id: id}), list)
+      this.search = function(str) {
+        return $http.get(apiService.getUrl('facilitiesList', 'search', {str: str}))
           .then(function(response) {
             return response.data;
           });

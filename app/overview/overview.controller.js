@@ -7,6 +7,8 @@
 
       $scope.facilities = [];
 
+      $scope.facilitiesSearch = '';
+
       $scope.facility;
 
       $scope.selectFacility = function(id) {        
@@ -21,7 +23,22 @@
             })            
           }
         })
-      }     
+      }
+
+      $scope.searchFacilities = function() {
+        if($scope.facilitiesSearch.length) {
+          facilitiesListService.search($scope.facilitiesSearch).then(function(list) {
+            $scope.facilities = list;
+          });
+        }        
+      }
+
+      $scope.resetSearch = function() {
+        $scope.facilitiesSearch = '';
+        facilitiesListService.getAll().then(function(list) {
+          $scope.facilities = list;
+        });
+      }
 
       facilitiesListService.getAll().then(function(list) {
         $scope.facilities = list;

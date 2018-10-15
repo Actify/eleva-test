@@ -68,6 +68,10 @@
             case 'getAll':
               $response = $facilitiesListBO->getAll();
               break;
+
+            case 'search':
+              $response = $facilitiesListBO->search($_GET['str']);
+              break;
           }
           break;
 

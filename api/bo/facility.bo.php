@@ -118,7 +118,8 @@
     }
 
     public function getStaff($facility_id) {
-      $sql = "SELECT fs.id, fs.assignment_date, fs.active, p.name, p.surname, p.email, p.address, p.photo_url, p.available, fr.description AS role_label, fr.color AS role_color ";
+      $sql = "SELECT fs.id, fs.assignment_date, fs.active, p.name, p.surname, p.email, p.address, p.photo_url, p.available, ";
+      $sql .= "fr.id AS role_id, fr.description AS role_label, fr.color AS role_color ";
       $sql .= "FROM facility_staff fs ";
       $sql .= "INNER JOIN people p ON p.id = fs.person_id ";
       $sql .= "LEFT JOIN facility_roles fr ON fr.id = fs.role_id ";

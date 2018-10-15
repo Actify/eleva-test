@@ -3,14 +3,14 @@
 
   angular
     .module('myApp')
-    .controller('facilityController', ['$routeParams', '$scope', '$http', 'facilityService', 'peopleService', function($routeParams, $scope, $http, facilityService, peopleService) {
+    .controller('facilityController', ['$routeParams', '$scope', '$http', 'facilityService', function($routeParams, $scope, $http, facilityService) {
       var facilityId = $routeParams.id;
 
       $scope.facility = {};
 
       $scope.unlistedPeople = [];
 
-      $scope.roles = peopleService.roles;
+      $scope.roleFilter = '';
 
       facilityService.get(facilityId)
         .then(function(facility) {
