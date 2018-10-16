@@ -39,7 +39,7 @@
         }
       };
     })
-    .directive('gmapView', function() {
+    .directive('gmapView', ['geolocatorService', function(geolocatorService) {
       return {
         scope: {
           markers: '=?',
@@ -54,31 +54,18 @@
             disableDefaultUI: true
           });
 
-          var setDefaultCenter = function() {
-            map.setCenter({lat:41.2036302, lng:8.2242391});
-            map.setZoom(5);
-          }
-
           var moveToMarker = function(id, pos) {
             map.setCenter(pos);
             map.setZoom(12);
           }
 
-          //set center position from geolocation;
-          //if it isn't available, center the map from first marker position
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-              var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              };
-              map.setCenter(pos);
-            }, function() {
-              setDefaultCenter();
-            });
-          } else {
-            setDefaultCenter();
-          }
+          geolocatorService.getPosition().then(function(position) {
+            map.setCenter(position);
+            map.setZoom(5);
+          }, function() {
+            map.setCenter({lat:41.2036302, lng:8.2242391});
+            map.setZoom(5);
+          });
 
           //watch markers array: when update, add new marker
           scope.$watch("markers", function(newValue, oldValue) {
@@ -107,8 +94,8 @@
           });
         }
       };
-    })
-    .directive('gmapPick', function() {
+    }])
+    .directive('gmapPick', ['geolocatorService', function(geolocatorService) {
       return {
         scope: {
           placeDetail: '=?',
@@ -121,11 +108,6 @@
             mapTypeId: 'roadmap',
             disableDefaultUI: true
           });
-
-          var setDefaultCenter = function() {
-            map.setCenter({lat:41.2036302, lng:8.2242391});
-            map.setZoom(5);
-          }
 
           var geocoder = new google.maps.Geocoder;
           var service = new google.maps.places.PlacesService(map);
@@ -161,22 +143,14 @@
             });
           });
 
-          //set center position from geolocation;
-          //if it isn't available, center the map from first marker position
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-              var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              };
-              map.setCenter(pos);
-            }, function() {
-              setDefaultCenter();
-            });
-          } else {
-            setDefaultCenter();
-          }
+          geolocatorService.getPosition().then(function(position) {
+            map.setCenter(position);
+            map.setZoom(5);
+          }, function() {
+            map.setCenter({lat:41.2036302, lng:8.2242391});
+            map.setZoom(5);
+          });
         }
       };
-    });
+    }]);
 })();

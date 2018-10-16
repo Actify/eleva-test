@@ -3,7 +3,7 @@
 
   angular
     .module('myApp')
-    .controller('overviewController', ['$scope', '$window', '$http', 'facilitiesListService', function($scope, $window, $http, facilitiesListService) {
+    .controller('overviewController', ['$scope', 'facilitiesListService', function($scope, facilitiesListService) {
 
       $scope.facilities = [];
 
